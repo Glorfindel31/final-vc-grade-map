@@ -1,3 +1,5 @@
+"use server";
+
 import { google, Auth } from "googleapis";
 
 interface ZoneData {
@@ -31,7 +33,7 @@ const auth: Auth.GoogleAuth = new google.auth.GoogleAuth({
 
 const gsapi = google.sheets({ version: "v4", auth });
 
-export async function GET(): Promise<Response> {
+export default async function getData() {
     try {
         const gradeList = await gsapi.spreadsheets.values.get({
             spreadsheetId: sheetID,
@@ -69,11 +71,9 @@ export async function GET(): Promise<Response> {
             },
             {} as Record<string, ZoneData[]>
         );
+        const response = JSON.stringify(groupedData);
 
-        return new Response(JSON.stringify(groupedData), {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-        });
+        return response;
     } catch (error) {
         console.error("Error fetching grade data:", error);
         return new Response(
