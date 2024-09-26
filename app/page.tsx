@@ -1,5 +1,7 @@
 import getData from "@/server/get-data";
 import { Button } from "@/components/ui/button";
+import { DataTable } from "./routesList/data-table";
+import { columns } from "./routesList/columns";
 import {
     Card,
     CardContent,
@@ -7,20 +9,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModeToggle } from "@/components/ui/toggle-mode";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 
-interface RouteData {
-    [key: string]: Array<{
-        zoneId: number;
-        routeColor: string;
-        routeGrade: number;
-        setter: string;
-        date: string;
-        betaLink?: string;
-    }>;
-}
+import type { RouteData, Route } from "./routesList/columns";
 
 export default async function Home() {
     const res = await getData();
@@ -61,48 +55,33 @@ export default async function Home() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            {Object.entries(data).map(([areaName, routes]) => (
-                                <div key={areaName}>
-                                    <table className="w-full">
-                                        <thead>
-                                            <tr>
-                                                <th>route name</th>
-                                                <th>zone id</th>
-                                                <th>route color</th>
-                                                <th>route grade</th>
-                                                <th>route setter</th>
-                                                <th>route date</th>
-                                                <th>route link</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {routes.map((route) => (
-                                                <tr key={route.zoneId}>
-                                                    <td>{areaName}</td>
-                                                    <td>{route.zoneId}</td>
-                                                    <td>{route.routeColor}</td>
-                                                    <td>{route.routeGrade}</td>
-                                                    <td>{route.setter}</td>
-                                                    <td>{route.date}</td>
-                                                    <td>
-                                                        {route.betaLink ? (
-                                                            <a
-                                                                href={
-                                                                    route.betaLink
-                                                                }
-                                                            >
-                                                                Beta Link
-                                                            </a>
-                                                        ) : (
-                                                            "/"
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            ))}
+                            <Tabs defaultValue="Moon Korner">
+                                {Object.entries(data).map(
+                                    ([areaName, routes]) => (
+                                        <TabsList>
+                                            <TabsTrigger
+                                                value={areaName}
+                                                key={areaName}
+                                            >
+                                                {areaName} - {routes.length}
+                                            </TabsTrigger>
+                                        </TabsList>
+                                    )
+                                )}
+                                {Object.entries(data).map(
+                                    ([areaName, routes]) => (
+                                        <TabsContent
+                                            key={areaName}
+                                            value={areaName}
+                                        >
+                                            <DataTable
+                                                columns={columns}
+                                                data={routes as Route[]}
+                                            />
+                                        </TabsContent>
+                                    )
+                                )}
+                            </Tabs>
                         </CardContent>
                         <CardFooter>
                             <p>Card Footer</p>
