@@ -51,14 +51,14 @@ export default async function Home() {
                     <Card>
                         <CardHeader>
                             <CardTitle className=" text-4xl font-bold">
-                                Vietclimb's Routes Map and Stats
+                                Vietclimb&apos;s Routes Map and Stats
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <Tabs defaultValue="Moon Korner">
                                 {Object.entries(data).map(
-                                    ([areaName, routes]) => (
-                                        <TabsList>
+                                    ([areaName, routes], index) => (
+                                        <TabsList key={`${areaName}-${index}`}>
                                             <TabsTrigger
                                                 value={areaName}
                                                 key={areaName}
@@ -69,9 +69,9 @@ export default async function Home() {
                                     )
                                 )}
                                 {Object.entries(data).map(
-                                    ([areaName, routes]) => (
+                                    ([areaName, routes], index) => (
                                         <TabsContent
-                                            key={areaName}
+                                            key={`${areaName}-${index}`}
                                             value={areaName}
                                         >
                                             <DataTable
