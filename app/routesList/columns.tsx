@@ -56,18 +56,56 @@ export const columns: ColumnDef<Route>[] = [
     },
     {
         accessorKey: "routeGrade",
-        header: "routeGrade",
+        header: () => <div className="text-center ">Grade</div>,
+        cell: ({ row }) => {
+            const routeGrade = row.getValue("routeGrade");
+            const colorMap = {
+                0: "bg-pink-500",
+                1: "bg-yellow-500 text-yellow-500",
+                2: "bg-orange-500 text-orange-500",
+                3: "bg-green-500 text-green-500",
+                4: "bg-blue-500 text-blue-500",
+                5: "bg-red-500 text-red-500",
+                6: "bg-black text-black",
+                default: "bg-slate-100 text-slate-100",
+            };
+
+            const backgroundColor = colorMap[routeGrade] || colorMap.default;
+            const textColor = backgroundColor.includes("text")
+                ? backgroundColor.replace("text-", "")
+                : "";
+            if (routeGrade) {
+                return (
+                    <div
+                        className={`text-center rounded-2xl w-full ${backgroundColor}`}
+                    >
+                        {routeGrade as string}
+                    </div>
+                );
+            }
+        },
     },
     {
         accessorKey: "setter",
-        header: "setter",
-    },
-    {
-        accessorKey: "date",
-        header: "date",
+        header: "Setter",
     },
     {
         accessorKey: "betaLink",
-        header: "betaLink",
+        header: "Insta Link",
+        cell: ({ row }) => {
+            const instaLink = row.getValue("betaLink") as string;
+            if (instaLink) {
+                return (
+                    <a
+                        href={instaLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                    >
+                        click
+                    </a>
+                );
+            }
+        },
     },
 ];
