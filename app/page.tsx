@@ -48,13 +48,13 @@ export default async function Home() {
                     <ModeToggle />
                 </div>
                 <div className="flex justify-center min-h-screen pt-8">
-                    <Card>
-                        <CardHeader>
+                    <Card className="w-full p-2">
+                        <CardHeader className="w-full p-2">
                             <CardTitle className=" text-4xl font-bold">
                                 Vietclimb&apos;s Routes Map and Stats
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="w-full p-2">
                             <Tabs defaultValue="Moon Korner">
                                 {Object.entries(data).map(
                                     ([areaName, routes], index) => (
