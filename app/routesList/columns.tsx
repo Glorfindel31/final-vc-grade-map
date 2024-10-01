@@ -27,8 +27,8 @@ const colorText = {
     3: " text-green-500",
     4: " text-blue-500",
     5: " text-red-500",
-    6: " text-slate-900",
-    7: " text-slate-300",
+    6: " text-zinc-900",
+    7: " text-zinc-300",
 };
 
 const colorBg = {
@@ -38,9 +38,9 @@ const colorBg = {
     green: "bg-green-500",
     blue: "bg-blue-500",
     red: "bg-red-500",
-    black: "bg-slate-900",
+    black: "bg-zinc-900",
     purple: "bg-purple-500",
-    white: "bg-slate-300",
+    white: "bg-zinc-300",
 };
 
 export const columns: ColumnDef<Route>[] = [
@@ -63,9 +63,11 @@ export const columns: ColumnDef<Route>[] = [
 
             if (row.getValue("routeColor")) {
                 return (
-                    <div
-                        className={`h-6 w-8 rounded-2xl ${color} outline outline-1`}
-                    ></div>
+                    <div className="flex justify-center w-full">
+                        <div
+                            className={`h-6 w-8 rounded-2xl ${color} outline outline-1`}
+                        ></div>
+                    </div>
                 );
             }
         },
@@ -77,9 +79,9 @@ export const columns: ColumnDef<Route>[] = [
             const color =
                 colorText[row.getValue("routeGrade") as keyof typeof colorText];
             return (
-                <div className={`flex ${color}`}>
-                    <TbDropletFilled />
-                    <TbDropletFilled />
+                <div className={`flex justify-center w-full ${color}`}>
+                    <TbDropletFilled className="w-6 h-6" />
+                    <TbDropletFilled className="w-6 h-6" />
                 </div>
             );
         },

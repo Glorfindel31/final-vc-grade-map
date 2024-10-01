@@ -1,7 +1,7 @@
 import getData from "@/server/get-data";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "./routesList/data-table";
 import { columns } from "./routesList/columns";
+import MenuBar from "@/components/menu-bar";
 import {
     Card,
     CardContent,
@@ -10,11 +10,19 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ModeToggle } from "@/components/ui/toggle-mode";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
-import Link from "next/link";
 
 import type { RouteData, Route } from "./routesList/columns";
+
+export function acronym(string: string) {
+    const words = string.split(" ");
+    const acronymLetters: string[] = [];
+
+    words.forEach((word) => {
+        acronymLetters.push(word[0]);
+    });
+
+    return acronymLetters.join("");
+}
 
 export default async function Home() {
     const res = await getData();
@@ -26,54 +34,41 @@ export default async function Home() {
     return (
         <div className="">
             <main className="flex flex-col items-center">
-                <div className="h-10 w-full bg-transparent border-b items-center justify-between flex">
-                    <div>
-                        <Button variant="ghost" asChild>
-                            <Link
-                                href="https://www.instagram.com/vietclimb_beta/"
-                                target="_blank"
-                            >
-                                <FaInstagram />
-                            </Link>
-                        </Button>
-                        <Button variant="ghost" asChild>
-                            <Link
-                                href="https://www.facebook.com/VietClimb"
-                                target="_blank"
-                            >
-                                <FaFacebook />
-                            </Link>
-                        </Button>
-                    </div>
-                    <ModeToggle />
-                </div>
-                <div className="flex justify-center min-h-screen pt-8">
-                    <Card className="w-full p-2">
+                <MenuBar />
+                <div className="flex flex-col justify-center min-h-screen pt-8">
+                    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center w-full mb-4">
+                        Vietclimb&apos;s Routes Map and Stats
+                    </h1>
+                    <Card className="p-2">
                         <CardHeader className="w-full p-2">
-                            <CardTitle className=" text-4xl font-bold">
-                                Vietclimb&apos;s Routes Map and Stats
-                            </CardTitle>
+                            <CardTitle>Routes list</CardTitle>
                         </CardHeader>
                         <CardContent className="w-full p-2">
                             <Tabs defaultValue="Moon Korner">
-                                {Object.entries(data).map(
-                                    ([areaName, routes], index) => (
-                                        <TabsList key={`${areaName}-${index}`}>
+                                <TabsList className="grid grid-cols-4 h-full">
+                                    {Object.entries(data).map(
+                                        ([areaName, routes]) => (
                                             <TabsTrigger
                                                 value={areaName}
                                                 key={areaName}
                                             >
-                                                {areaName} - {routes.length}
+                                                {acronym(
+                                                    areaName as string
+                                                ).toUpperCase()}{" "}
+                                                - {routes.length}
                                             </TabsTrigger>
-                                        </TabsList>
-                                    )
-                                )}
+                                        )
+                                    )}
+                                </TabsList>
                                 {Object.entries(data).map(
                                     ([areaName, routes], index) => (
                                         <TabsContent
                                             key={`${areaName}-${index}`}
                                             value={areaName}
                                         >
+                                            <h3 className="my-4 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+                                                {areaName}
+                                            </h3>
                                             <DataTable
                                                 columns={columns}
                                                 data={routes as Route[]}
@@ -83,9 +78,7 @@ export default async function Home() {
                                 )}
                             </Tabs>
                         </CardContent>
-                        <CardFooter>
-                            <p>Card Footer</p>
-                        </CardFooter>
+                        <CardFooter>Are displayed routes per Zones.</CardFooter>
                     </Card>
                 </div>
             </main>
