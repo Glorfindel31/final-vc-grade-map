@@ -23,7 +23,12 @@ export function acronym(string: string) {
 
     return acronymLetters.join("");
 }
-
+export function routesNumber(data: RouteData) {
+    const routesNumber = Object.entries(data).reduce((acc, [routes]) => {
+        return acc + routes.length;
+    }, 0);
+    return routesNumber;
+}
 export default async function Home() {
     const res = await getData();
     if (!res || typeof res !== "string") {
@@ -41,11 +46,13 @@ export default async function Home() {
                     </h1>
                     <Card className="p-2">
                         <CardHeader className="w-full p-2">
-                            <CardTitle>Routes list</CardTitle>
+                            <CardTitle>
+                                Routes list - {routesNumber(data)} routes
+                            </CardTitle>
                         </CardHeader>
                         <CardContent className="w-full p-2">
                             <Tabs defaultValue="Moon Korner">
-                                <TabsList className="grid grid-cols-4 h-full">
+                                <TabsList className="grid grid-cols-3 h-full">
                                     {Object.entries(data).map(
                                         ([areaName, routes]) => (
                                             <TabsTrigger
