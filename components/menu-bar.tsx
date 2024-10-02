@@ -5,7 +5,7 @@ import { ModeToggle } from "./ui/toggle-mode";
 
 export default function MenuBar() {
     return (
-        <div className="h-10 w-full bg-transparent border-b items-center justify-between flex">
+        <div className="h-10  border-b items-center justify-between flex  sticky top-0 z-50 w-full border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div>
                 <Button variant="ghost" asChild>
                     <Link
