@@ -1,6 +1,6 @@
 import getData from "@/server/get-data";
 import type { RouteData, Route } from "./routesList/columns";
-import { acronym, routesNumber, routesNumberByGrade } from "@/lib/utils";
+import { acronym, routesNumber } from "@/lib/utils";
 import { DataTable } from "./routesList/data-table";
 import { columns } from "./routesList/columns";
 import MenuBar from "@/components/menu-bar";
@@ -12,6 +12,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GeneralChart } from "@/components/general-chart";
 
 export default async function Home() {
     const res = await getData();
@@ -25,7 +26,7 @@ export default async function Home() {
             <main className="flex flex-col items-center bg-transparent">
                 <MenuBar />
                 <div className="flex flex-col justify-center min-h-screen p-2 gap-2">
-                    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center w-full">
+                    <h1 className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl text-center w-full">
                         Vietclimb&apos;s Routes Map and Stats
                     </h1>
                     <Card className="p-2">
@@ -87,9 +88,7 @@ export default async function Home() {
                                 Routes list - {routesNumber(data)} routes
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="w-full p-2">
-                            {routesNumberByGrade(data, 1)}
-                        </CardContent>
+                        <GeneralChart data={data} />
                         <CardFooter>
                             Are displayed level&apos;s chart.
                         </CardFooter>
