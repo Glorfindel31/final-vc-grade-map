@@ -1,6 +1,7 @@
 "use server";
 
 import { google, Auth } from "googleapis";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 interface ZoneData {
     zoneId: number;
@@ -73,6 +74,7 @@ export default async function getData() {
         );
         const response = JSON.stringify(groupedData);
 
+        revalidatePath("/");
         return response;
     } catch (error) {
         console.error("Error fetching grade data:", error);
