@@ -27,8 +27,8 @@ const colorText = {
     3: " text-green-500",
     4: " text-blue-500",
     5: " text-red-500",
-    6: " text-zinc-900",
-    7: " text-zinc-300",
+    6: " text-zinc-950",
+    7: " text-zinc-50",
 };
 
 const colorBg = {
@@ -38,9 +38,9 @@ const colorBg = {
     green: "bg-green-500",
     blue: "bg-blue-500",
     red: "bg-red-500",
-    black: "bg-zinc-900",
+    black: "bg-zinc-950",
     purple: "bg-purple-500",
-    white: "bg-zinc-300",
+    white: "bg-zinc-50",
 };
 
 export const columns: ColumnDef<Route>[] = [
@@ -64,9 +64,7 @@ export const columns: ColumnDef<Route>[] = [
             if (row.getValue("routeColor")) {
                 return (
                     <div className="flex justify-center w-full">
-                        <div
-                            className={`h-6 w-8 rounded-2xl ${color} outline outline-1`}
-                        ></div>
+                        <div className={`h-6 w-8 rounded-2xl ${color}`}></div>
                     </div>
                 );
             }

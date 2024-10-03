@@ -9,6 +9,9 @@ import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { routesNumberByGrade } from "@/lib/utils";
 
 const generalChartConfig = {
+    amount: {
+        label: "Routes Amount",
+    },
     grade: {
         label: "grade",
         color: "#60a5fa",
@@ -17,11 +20,6 @@ const generalChartConfig = {
 
 export function GeneralChart(props: { data: RouteData }) {
     const generalChart = [
-        {
-            grade: 0,
-            number: routesNumberByGrade(props.data, 0),
-            fill: "#ec4899",
-        },
         {
             grade: 1,
             number: routesNumberByGrade(props.data, 1),
@@ -50,12 +48,17 @@ export function GeneralChart(props: { data: RouteData }) {
         {
             grade: 6,
             number: routesNumberByGrade(props.data, 6),
-            fill: "#18181b",
+            fill: "#09090b",
         },
         {
             grade: 7,
             number: routesNumberByGrade(props.data, 7),
             fill: "#d4d4d8",
+        },
+        {
+            grade: 0,
+            number: routesNumberByGrade(props.data, 0),
+            fill: "#ec4899",
         },
     ];
 
@@ -66,8 +69,16 @@ export function GeneralChart(props: { data: RouteData }) {
         >
             <BarChart accessibilityLayer data={generalChart}>
                 <CartesianGrid vertical={false} />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
+                <ChartTooltip
+                    content={
+                        <ChartTooltipContent
+                            nameKey="amount"
+                            labelKey="label"
+                            indicator="line"
+                            hideLabel={false}
+                        />
+                    }
+                />
                 <Bar dataKey="number" fill="var(--color-grade)" radius={4} />
             </BarChart>
         </ChartContainer>
