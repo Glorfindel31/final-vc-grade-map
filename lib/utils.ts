@@ -33,3 +33,13 @@ export function routesNumberByGrade(data: RouteData, grade: number): number {
 
     return routesNumber;
 }
+
+export function routesNumberByGradeByZone(data: Route[], grade: number) {
+    const routesNumber = data.reduce((acc, route) => {
+        if (route.routeGrade === grade) {
+            return acc + 1;
+        }
+        return acc;
+    }, 0);
+    return routesNumber;
+}

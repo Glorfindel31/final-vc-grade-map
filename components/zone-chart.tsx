@@ -2,13 +2,13 @@
 
 import { Bar, BarChart, CartesianGrid } from "recharts";
 
-import type { RouteData } from "../app/routesList/columns";
+import type { Route } from "../app/routesList/columns";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
-import { routesNumberByGrade } from "@/lib/utils";
+import { routesNumberByGradeByZone } from "@/lib/utils";
 
-const generalChartConfig = {
+const zoneChartConfig = {
     amount: {
         label: "Routes Amount",
     },
@@ -18,56 +18,56 @@ const generalChartConfig = {
     },
 } satisfies ChartConfig;
 
-export function GeneralChart(props: { data: RouteData }) {
-    const generalChart = [
+export function ZoneChart(props: { data: Route[] }) {
+    const zoneChart = [
         {
             grade: 1,
-            number: routesNumberByGrade(props.data, 1),
+            number: routesNumberByGradeByZone(props.data, 1),
             fill: "#eab308",
         },
         {
             grade: 2,
-            number: routesNumberByGrade(props.data, 2),
+            number: routesNumberByGradeByZone(props.data, 2),
             fill: "#f97316",
         },
         {
             grade: 3,
-            number: routesNumberByGrade(props.data, 3),
+            number: routesNumberByGradeByZone(props.data, 3),
             fill: "#22c55e",
         },
         {
             grade: 4,
-            number: routesNumberByGrade(props.data, 4),
+            number: routesNumberByGradeByZone(props.data, 4),
             fill: "#3b82f6",
         },
         {
             grade: 5,
-            number: routesNumberByGrade(props.data, 5),
+            number: routesNumberByGradeByZone(props.data, 5),
             fill: "#ef4444",
         },
         {
             grade: 6,
-            number: routesNumberByGrade(props.data, 6),
+            number: routesNumberByGradeByZone(props.data, 6),
             fill: "#09090b",
         },
         {
             grade: 7,
-            number: routesNumberByGrade(props.data, 7),
+            number: routesNumberByGradeByZone(props.data, 7),
             fill: "#d4d4d8",
         },
         {
             grade: 0,
-            number: routesNumberByGrade(props.data, 0),
+            number: routesNumberByGradeByZone(props.data, 0),
             fill: "#ec4899",
         },
     ];
 
     return (
         <ChartContainer
-            config={generalChartConfig}
+            config={zoneChartConfig}
             className="min-h-[200px] w-full"
         >
-            <BarChart accessibilityLayer data={generalChart}>
+            <BarChart accessibilityLayer data={zoneChart}>
                 <CartesianGrid vertical={false} />
                 <ChartTooltip
                     content={
