@@ -12,15 +12,13 @@ import type { RouteData } from "../app/routesList/columns";
 export default function OverallChart(props: { data: RouteData }) {
     return (
         <Card>
-            <CardHeader className="py-4 mb-4 px-2">
+            <CardHeader>
                 <CardTitle className="pb-1 text-2xl font-semibold tracking-tight transition-colors">
                     Overall Level Chart
                 </CardTitle>
             </CardHeader>
-            <CardContent className="w-full py-4 px-2">
+            <CardContent>
                 <GeneralChart data={props.data} />
-            </CardContent>
-            <CardFooter className="font-thin italic flex flex-col">
                 <div className="flex flex-col w-full py-8 text-center justify-items-center text-xs gap-4">
                     <div className="flex flex-row w-full justify-between">
                         <div className="w-full flex flex-col items-center">
@@ -59,6 +57,8 @@ export default function OverallChart(props: { data: RouteData }) {
                         <p>Joker</p>
                     </div>
                 </div>
+            </CardContent>
+            <CardFooter className="font-thin italic flex flex-col">
                 Are displayed level&apos;s chart.
             </CardFooter>
         </Card>

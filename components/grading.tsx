@@ -4,7 +4,7 @@ import { TbDropletFilled } from "react-icons/tb";
 export default function Grading() {
     return (
         <Card>
-            <CardHeader className="w-full py-4 mb-4 px-2">
+            <CardHeader>
                 <CardTitle className="pb-1 text-2xl font-semibold tracking-tight transition-colors text-center">
                     Grading Scale
                 </CardTitle>

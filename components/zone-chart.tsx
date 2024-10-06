@@ -65,7 +65,7 @@ export function ZoneChart(props: { data: Route[] }) {
     return (
         <ChartContainer
             config={zoneChartConfig}
-            className="min-h-[200px] w-full"
+            className="min-h-[50px] w-full p-0 m-0"
         >
             <BarChart accessibilityLayer data={zoneChart}>
                 <CartesianGrid vertical={false} />

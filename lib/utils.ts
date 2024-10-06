@@ -16,11 +16,49 @@ export function acronym(string: string) {
 
     return acronymLetters.join("");
 }
-export function routesNumber(data: RouteData) {
-    const routesNumber = Object.entries(data).reduce((acc, [routes]) => {
-        return acc + routes.length;
-    }, 0);
-    return routesNumber;
+// export function routesNumber(data: RouteData) {
+//     const routesNumber = Object.entries(data).reduce((acc, [routes]) => {
+//         return acc + routes.length;
+//     }, 0);
+//     return routesNumber;
+// }
+
+export type AllRoutes = {
+    zone: string;
+    routeColor: string;
+    routeGrade: number;
+    setter: string;
+    date: string;
+    betaLink?: string;
+};
+
+export function allRouteListMutation(data: RouteData): AllRoutes[] {
+    const flattenedRoutes: AllRoutes[] = [];
+
+    Object.entries(data).forEach(([areaName, routes]) => {
+        routes.forEach((route) => {
+            if (!route.betaLink) {
+                flattenedRoutes.push({
+                    routeColor: route.routeColor,
+                    routeGrade: route.routeGrade,
+                    setter: route.setter,
+                    date: route.date,
+                    zone: areaName,
+                });
+            } else {
+                flattenedRoutes.push({
+                    routeColor: route.routeColor,
+                    routeGrade: route.routeGrade,
+                    setter: route.setter,
+                    date: route.date,
+                    betaLink: route.betaLink,
+                    zone: areaName,
+                });
+            }
+        });
+    });
+
+    return flattenedRoutes;
 }
 
 export function routesNumberByGrade(data: RouteData, grade: number): number {
