@@ -2,6 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 import { FaPlay } from "react-icons/fa";
 import { TbDropletFilled } from "react-icons/tb";
 
@@ -43,10 +44,25 @@ const colorBg = {
     white: "bg-zinc-50",
 };
 
-export const columns: ColumnDef<Route>[] = [
+export const columnsZone: ColumnDef<Route>[] = [
     {
         accessorKey: "zoneId",
-        header: () => <div className="text-center px-1">Id</div>,
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Id
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
         cell: ({ row }) => {
             return (
                 <div className="text-center px-1">{row.getValue("zoneId")}</div>
@@ -55,7 +71,22 @@ export const columns: ColumnDef<Route>[] = [
     },
     {
         accessorKey: "routeColor",
-        header: () => <div className="text-center">Holds</div>,
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Holds
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
         cell: ({ row }) => {
             const routeColor: string = row.getValue("routeColor");
             const color =
@@ -72,23 +103,199 @@ export const columns: ColumnDef<Route>[] = [
     },
     {
         accessorKey: "routeGrade",
-        header: () => <div className="text-center ">Grade</div>,
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Grade
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
         cell: ({ row }) => {
             const color =
                 colorText[row.getValue("routeGrade") as keyof typeof colorText];
             return (
                 <div className={`flex justify-center w-full ${color}`}>
-                    <TbDropletFilled className="w-6 h-6" />
-                    <TbDropletFilled className="w-6 h-6" />
+                    <TbDropletFilled className="w-4 h-4" />
+                    <TbDropletFilled className="w-4 h-4" />
                 </div>
             );
         },
     },
     {
         accessorKey: "setter",
-        header: () => <div className="text-right">Setter</div>,
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Setter
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
         cell: ({ row }) => {
-            return <div className="text-right">{row.getValue("setter")}</div>;
+            return (
+                <div className="text-right px-1">{row.getValue("setter")}</div>
+            );
+        },
+    },
+    {
+        accessorKey: "betaLink",
+        header: () => <div className="text-right pr-1">Beta</div>,
+        cell: ({ row }) => {
+            const instaLink = row.getValue("betaLink") as string;
+            if (instaLink) {
+                return (
+                    <div className="flex justify-end w-full">
+                        <Button asChild variant="outline" size="icon">
+                            <Link
+                                href={instaLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <FaPlay className="w-full" />
+                            </Link>
+                        </Button>
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="flex justify-end w-full">
+                        <Button variant="outline" size="icon" disabled>
+                            <FaPlay className="w-full" />
+                        </Button>
+                    </div>
+                );
+            }
+        },
+    },
+];
+
+export const columnsAll: ColumnDef<Route>[] = [
+    {
+        accessorKey: "zone",
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Zone
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
+        cell: ({ row }) => {
+            return (
+                <div className="text-left px-1 text-xs">
+                    {row.getValue("zone")}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: "routeColor",
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Holds
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
+        cell: ({ row }) => {
+            const routeColor: string = row.getValue("routeColor");
+            const color =
+                colorBg[routeColor.toLowerCase() as keyof typeof colorBg];
+
+            if (row.getValue("routeColor")) {
+                return (
+                    <div className="flex justify-center w-full">
+                        <div className={`h-6 w-8 rounded-2xl ${color}`}></div>
+                    </div>
+                );
+            }
+        },
+    },
+    {
+        accessorKey: "routeGrade",
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Grade
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
+        cell: ({ row }) => {
+            const color =
+                colorText[row.getValue("routeGrade") as keyof typeof colorText];
+            return (
+                <div className={`flex justify-center w-full ${color}`}>
+                    <TbDropletFilled className="w-4 h-4" />
+                    <TbDropletFilled className="w-4 h-4" />
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: "setter",
+        header: ({ column }) => {
+            return (
+                <div className="flex items-center justify-center">
+                    <Button
+                        variant="link"
+                        onClick={() =>
+                            column.toggleSorting(column.getIsSorted() === "asc")
+                        }
+                        className="text-center p-0"
+                    >
+                        Setter
+                        <ArrowUpDown className="ml-1 h-2 w-2" />
+                    </Button>
+                </div>
+            );
+        },
+        cell: ({ row }) => {
+            return (
+                <div className="text-right px-1">{row.getValue("setter")}</div>
+            );
         },
     },
     {

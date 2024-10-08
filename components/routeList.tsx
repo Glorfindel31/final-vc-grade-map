@@ -9,16 +9,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { RouteData, Route } from "../app/routesList/columns";
 import { acronym, allRouteListMutation } from "@/lib/utils";
 import { DataTable } from "../app/routesList/data-table";
-import { columns } from "../app/routesList/columns";
+import { columnsZone } from "../app/routesList/columns";
 import { ZoneChart } from "./zone-chart";
 
 export default function RouteList(props: { data: RouteData }) {
     return (
         <Card className="w-full">
             <CardHeader>
-                <CardTitle className="pb-1 text-2xl font-semibold tracking-tight transition-colors">
-                    Routes list - {allRouteListMutation(props.data).length}{" "}
-                    routes
+                <CardTitle className="text-2xl font-semibold tracking-tight transition-colors">
+                    {allRouteListMutation(props.data).length} routes
                 </CardTitle>
             </CardHeader>
             <CardContent>
@@ -39,16 +38,16 @@ export default function RouteList(props: { data: RouteData }) {
                             <TabsContent
                                 key={`${areaName}-${index}`}
                                 value={areaName}
-                                className="flex flex-col gap-4"
+                                className="flex flex-col gap-4 m-0"
                             >
-                                <h3 className="scroll-m-20 border-b pb-2 text-1xl font-semibold tracking-tight transition-colors">
+                                <h3 className="pt-4 pb-2 border-b text-1xl font-semibold tracking-tight transition-colors">
                                     {areaName} - {routes.length} routes
                                 </h3>
                                 <DataTable
-                                    columns={columns}
+                                    columns={columnsZone}
                                     data={routes as Route[]}
                                 />
-                                <h3 className="scroll-m-20 border-b pb-2 text-1xl font-semibold tracking-tight transition-colors">
+                                <h3 className="pt-4 pb-2 border-b  text-1xl font-semibold tracking-tight transition-colors">
                                     Zone chart
                                 </h3>
                                 <ZoneChart data={routes} />

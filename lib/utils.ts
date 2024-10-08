@@ -30,15 +30,18 @@ export type AllRoutes = {
     setter: string;
     date: string;
     betaLink?: string;
+    zoneId: number;
 };
 
 export function allRouteListMutation(data: RouteData): AllRoutes[] {
     const flattenedRoutes: AllRoutes[] = [];
+    let zoneIdCounter = 1;
 
     Object.entries(data).forEach(([areaName, routes]) => {
         routes.forEach((route) => {
             if (!route.betaLink) {
                 flattenedRoutes.push({
+                    zoneId: zoneIdCounter++,
                     routeColor: route.routeColor,
                     routeGrade: route.routeGrade,
                     setter: route.setter,
@@ -47,6 +50,7 @@ export function allRouteListMutation(data: RouteData): AllRoutes[] {
                 });
             } else {
                 flattenedRoutes.push({
+                    zoneId: zoneIdCounter++,
                     routeColor: route.routeColor,
                     routeGrade: route.routeGrade,
                     setter: route.setter,
