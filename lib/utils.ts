@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { RouteData, Route } from "../app/routesList/columns";
+import type { RouteData, Route, AllRoutes } from "../app/routesList/columns";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -22,16 +22,6 @@ export function acronym(string: string) {
 //     }, 0);
 //     return routesNumber;
 // }
-
-export type AllRoutes = {
-    zone: string;
-    routeColor: string;
-    routeGrade: number;
-    setter: string;
-    date: string;
-    betaLink?: string;
-    zoneId: number;
-};
 
 export function allRouteListMutation(data: RouteData): AllRoutes[] {
     const flattenedRoutes: AllRoutes[] = [];

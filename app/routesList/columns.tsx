@@ -6,6 +6,16 @@ import { ArrowUpDown } from "lucide-react";
 import { FaPlay } from "react-icons/fa";
 import { TbDropletFilled } from "react-icons/tb";
 
+export type AllRoutes = {
+    zone: string;
+    routeColor: string;
+    routeGrade: number;
+    setter: string;
+    date: string;
+    betaLink?: string;
+    zoneId: number;
+};
+
 export interface Route {
     zoneId: number;
     routeColor: string;
