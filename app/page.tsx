@@ -21,30 +21,19 @@ export default async function Home() {
   const data: RouteData = JSON.parse(res);
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between">
+    <main className="flex min-h-screen w-full flex-col items-center justify-between gap-4">
       <MenuBar />
       <div className="flex h-full w-screen max-w-sm flex-col gap-2 px-2 sm:max-w-7xl">
-        <h1 className="mb-6 mt-20 w-full text-center text-3xl font-bold">
+        <h1 className="mb-6 mt-20 w-full text-center text-3xl font-bold sm:text-left sm:text-5xl">
           Vietclimb&apos;s Routes Map and Stats
         </h1>
         <Grading />
 
-        <div className="hidden w-full grid-cols-2 gap-2 sm:grid">
-          <RouteList
-            data={data}
-            className="max-h-fit min-h-full overflow-y-auto"
-          />
-
-          <AllRouteList data={data} className="max-h-max overflow-y-scroll" />
-
-          <OverallChart
-            data={data}
-            className="max-h-fit min-h-full overflow-y-auto"
-          />
-          <RouteSetterChart
-            data={data}
-            className="max-h-fit min-h-full overflow-y-auto"
-          />
+        <div className="hidden h-[calc(100vh*1.2)] grid-cols-2 gap-2 sm:grid">
+          <RouteList data={data} className="overflow-y-scroll" />
+          <AllRouteList data={data} className="overflow-y-scroll" />
+          <OverallChart data={data} className="overflow-y-scroll" />
+          <RouteSetterChart data={data} className="overflow-y-scroll" />
         </div>
 
         <MobileAccordion data={data} className="visible sm:hidden" />
