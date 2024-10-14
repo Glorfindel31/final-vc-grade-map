@@ -1,110 +1,56 @@
 import getData from "@/server/get-data";
-import type { RouteData } from "./routesList/columns";
-import RouteList from "@/components/routeList";
+
+import RouteList from "@/components/route-list";
+import AllRouteList from "@/components/all-route-list";
+import OverallChart from "@/components/overall-chart";
+import RouteSetterChart from "@/components/route-setter-chart";
+
 import Grading from "@/components/grading";
 import MenuBar from "@/components/menu-bar";
-import OverallChart from "@/components/overallChart";
+import MobileAccordion from "@/components/mobile-accordion";
+import BackToTop from "@/components/ui/top-button";
+import Footer from "@/components/footer";
 
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion";
-import { DataTable } from "./routesList/data-table";
-import { columnsAll, AllRoutes } from "./routesList/columns";
-import { allRouteListMutation } from "@/lib/utils";
-import { SetterChart } from "@/components/setter-chart";
+import { RouteData } from "./routesList/columns";
 
 export default async function Home() {
-    const res = await getData();
-    if (!res || typeof res !== "string") {
-        return <div>oops refresh?</div>;
-    }
-    const data: RouteData = JSON.parse(res);
+  const res = await getData();
+  if (!res || typeof res !== "string") {
+    return <div>oops refresh?</div>;
+  }
+  const data: RouteData = JSON.parse(res);
 
-    return (
-        <main className="flex flex-col w-full">
-            <MenuBar />
-            <div className="flex flex-col min-h-screen gap-2 w-screen max-w-sm px-2">
-                <h1 className="my-4 text-3xl font-bold text-center w-full">
-                    Vietclimb&apos;s Routes Map and Stats
-                </h1>
-                <Grading />
-                <Accordion type="single" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger>Route list / Zones</AccordionTrigger>
-                        <AccordionContent>
-                            <RouteList data={data} />
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                        <AccordionTrigger>All Route List</AccordionTrigger>
-                        <AccordionContent>
-                            <Card className="w-full">
-                                <CardHeader>
-                                    <CardTitle className="text-2xl font-semibold tracking-tight transition-colors">
-                                        All routes list
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <DataTable
-                                        columns={columnsAll}
-                                        data={
-                                            allRouteListMutation(
-                                                data
-                                            ) as AllRoutes[]
-                                        }
-                                    />
-                                </CardContent>
-                                <CardFooter className="font-thin italic"></CardFooter>
-                            </Card>
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                        <AccordionTrigger>Overall level chart</AccordionTrigger>
-                        <AccordionContent>
-                            <OverallChart data={data} />
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-4">
-                        <AccordionTrigger>Route-Setter chart</AccordionTrigger>
-                        <AccordionContent>
-                            <Card className="w-full">
-                                <CardHeader>
-                                    <CardTitle className="text-2xl font-semibold tracking-tight transition-colors">
-                                        Route-setter Chart
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <SetterChart
-                                        data={
-                                            allRouteListMutation(
-                                                data
-                                            ) as AllRoutes[]
-                                        }
-                                    />
-                                </CardContent>
-                            </Card>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
+  return (
+    <main className="flex min-h-screen w-full flex-col items-center justify-between">
+      <MenuBar />
+      <div className="flex h-full w-screen max-w-sm flex-col gap-2 px-2 sm:max-w-7xl">
+        <h1 className="mb-6 mt-20 w-full text-center text-3xl font-bold">
+          Vietclimb&apos;s Routes Map and Stats
+        </h1>
+        <Grading />
 
-                <footer className="flex flex-col w-full items-center my-4">
-                    <div className="flex flex-col w-full items-center">
-                        <p className="text-xs font-thin italic">
-                            Created by Cedric Florentin | 2024
-                        </p>
-                    </div>
-                </footer>
-            </div>
-        </main>
-    );
+        <div className="hidden w-full grid-cols-2 gap-2 sm:grid">
+          <RouteList
+            data={data}
+            className="max-h-fit min-h-full overflow-y-auto"
+          />
+
+          <AllRouteList data={data} className="max-h-max overflow-y-scroll" />
+
+          <OverallChart
+            data={data}
+            className="max-h-fit min-h-full overflow-y-auto"
+          />
+          <RouteSetterChart
+            data={data}
+            className="max-h-fit min-h-full overflow-y-auto"
+          />
+        </div>
+
+        <MobileAccordion data={data} className="visible sm:hidden" />
+      </div>
+      <BackToTop threshold={300} />
+      <Footer />
+    </main>
+  );
 }

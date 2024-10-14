@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
-import BackToTop from "@/components/ui/top-button";
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -37,7 +37,6 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     {children}
-                    <BackToTop threshold={300} />
                 </ThemeProvider>
             </body>
         </html>
