@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CSPostHogProvider } from "./postHogProvider";
+import PostHogPageView from "@/components/postHogPageView";
 
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <PostHogPageView />
             {children}
           </ThemeProvider>
         </body>
