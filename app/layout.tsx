@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
-import { CSPostHogProvider } from "./postHogProvider";
-import PostHogPageView from "@/components/postHogPageView";
 
 import "./globals.css";
 
@@ -29,21 +27,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <CSPostHogProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <PostHogPageView />
-            {children}
-          </ThemeProvider>
-        </body>
-      </CSPostHogProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { FaPlay } from "react-icons/fa";
-import { TbDropletFilled } from "react-icons/tb";
 
 export type AllRoutes = {
   zone: string;
@@ -29,17 +28,6 @@ type RouteArray<T extends Route> = T[];
 
 export type RouteData = {
   [key: string]: RouteArray<Route>;
-};
-
-const colorText = {
-  0: " text-pink-500",
-  1: " text-yellow-500",
-  2: " text-orange-500",
-  3: " text-green-500",
-  4: " text-blue-500",
-  5: " text-red-500",
-  6: " text-zinc-950",
-  7: " text-zinc-50",
 };
 
 const colorBg = {
@@ -121,12 +109,10 @@ export const columnsZone: ColumnDef<Route>[] = [
       );
     },
     cell: ({ row }) => {
-      const color =
-        colorText[row.getValue("routeGrade") as keyof typeof colorText];
+      const grade = row.getValue("routeGrade") as number;
       return (
-        <div className={`flex w-full justify-center ${color}`}>
-          <TbDropletFilled className="h-4 w-4" />
-          <TbDropletFilled className="h-4 w-4" />
+        <div className="flex w-full justify-center text-lg font-semibold">
+          {grade}
         </div>
       );
     },
@@ -248,12 +234,10 @@ export const columnsAll: ColumnDef<Route>[] = [
       );
     },
     cell: ({ row }) => {
-      const color =
-        colorText[row.getValue("routeGrade") as keyof typeof colorText];
+      const grade = row.getValue("routeGrade") as number;
       return (
-        <div className={`flex w-full justify-center ${color}`}>
-          <TbDropletFilled className="h-4 w-4" />
-          <TbDropletFilled className="h-4 w-4" />
+        <div className="flex w-full justify-center text-lg font-semibold">
+          {grade}
         </div>
       );
     },

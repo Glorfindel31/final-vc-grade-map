@@ -10,7 +10,6 @@ import type { RouteData, Route } from "@/app/routesList/columns";
 import { acronym, allRouteListMutation, cn } from "@/lib/utils";
 import { DataTable } from "@/app/routesList/data-table";
 import { columnsZone } from "@/app/routesList/columns";
-import { ZoneChart } from "./zone-chart";
 
 export default function RouteList({
   data,
@@ -49,10 +48,6 @@ export default function RouteList({
                 {areaName} - {routes.length} routes
               </h3>
               <DataTable columns={columnsZone} data={routes as Route[]} />
-              <h3 className="text-1xl border-b pb-2 pt-4 font-semibold tracking-tight transition-colors">
-                Zone chart
-              </h3>
-              <ZoneChart data={routes} />
             </TabsContent>
           ))}
         </Tabs>
