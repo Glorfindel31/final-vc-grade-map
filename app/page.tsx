@@ -27,7 +27,6 @@ export default async function Home() {
         <h1 className="mb-6 mt-20 w-full text-center text-3xl font-bold sm:text-left sm:text-5xl">
           Vietclimb&apos;s Routes Map and Stats
         </h1>
-        <Grading />
 
         <div className="hidden h-[calc(100vh*1.2)] grid-cols-2 gap-2 sm:grid">
           <RouteList data={data} className="overflow-y-scroll" />
@@ -37,6 +36,7 @@ export default async function Home() {
         </div>
 
         <MobileAccordion data={data} className="visible sm:hidden" />
+        <Grading />
       </div>
       <BackToTop threshold={300} />
       <Footer />
