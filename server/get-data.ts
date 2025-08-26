@@ -38,7 +38,7 @@ export default async function getData() {
   try {
     const gradeList = await gsapi.spreadsheets.values.get({
       spreadsheetId: sheetID,
-      range: "SettingSheet!B2:H226",
+      range: "SettingSheet!B2:I226",
     });
 
     const groupedData = gradeList.data.values?.reduce(
@@ -66,13 +66,16 @@ export default async function getData() {
           // Use the new numerical grade system (column F)
           const gradeNumber = parseInt(newGrade) || 0;
 
+          // Beta link is optional (column I) - may not exist for all rows
+          const betaLink = row.length >= 8 ? row[7] : "";
+
           acc[zone].push({
             zoneId: parseInt(zoneId) || 0,
             routeColor: englishColor,
             routeGrade: gradeNumber,
             setter: setter || "",
             date: date || "",
-            betaLink: "", // Beta link column not visible in current range
+            betaLink: betaLink || "", // Use actual beta link from column I
           });
         }
         return acc;

@@ -142,6 +142,7 @@ export const columnsZone: ColumnDef<Route>[] = [
     header: () => <div className="pr-1 text-right">Beta</div>,
     cell: ({ row }) => {
       const instaLink = row.getValue("betaLink") as string;
+
       if (instaLink) {
         return (
           <div className="flex w-full justify-end">
@@ -267,6 +268,7 @@ export const columnsAll: ColumnDef<Route>[] = [
     header: () => <div className="pr-1 text-right">Beta</div>,
     cell: ({ row }) => {
       const instaLink = row.getValue("betaLink") as string;
+
       if (instaLink) {
         return (
           <div className="flex w-full justify-end">
