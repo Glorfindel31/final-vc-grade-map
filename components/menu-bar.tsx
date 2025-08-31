@@ -8,6 +8,7 @@ import LogoWhite from "@/public/vc-logo-black.svg";
 import LogoBlack from "@/public/vc-logo-white.svg";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { GradeScaleToggle } from "@/components/grade-scale-toggle";
 
 export default function MenuBar() {
   const { theme } = useTheme();
@@ -62,7 +63,10 @@ export default function MenuBar() {
           </Link>
         </Button>
       </div>
-      <ModeToggle />
+      <div className="flex items-center gap-2">
+        <GradeScaleToggle />
+        <ModeToggle />
+      </div>
     </div>
   );
 }

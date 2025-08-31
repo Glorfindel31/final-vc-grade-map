@@ -25,7 +25,7 @@ export default async function Home() {
       <MenuBar />
       <div className="flex h-full w-screen max-w-sm flex-col gap-2 px-2 sm:max-w-7xl">
         <h1 className="mb-6 mt-20 w-full text-center text-3xl font-bold sm:text-left sm:text-5xl">
-          Vietclimb&apos;s Routes Map and Stats
+          Vietclimb Setting Stats
         </h1>
 
         <div className="hidden h-[calc(100vh*1.2)] grid-cols-2 gap-2 sm:grid">
