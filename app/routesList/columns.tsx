@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { FaPlay } from "react-icons/fa";
-import { convertVietclimbToVscale } from "@/lib/utils";
+import { convertGrade } from "@/lib/utils";
 import { useGradeScale } from "@/context/GradeScaleContext";
 
 export type AllRoutes = {
@@ -114,9 +114,12 @@ export const columnsZone: ColumnDef<Route>[] = [
       const { gradeScale } = useGradeScale();
       const grade = row.getValue("routeGrade") as number;
       const displayedGrade =
-        gradeScale === "Vscale"
-          ? convertVietclimbToVscale(grade)
-          : grade.toString();
+        gradeScale === "VC"
+          ? grade.toString()
+          : convertGrade(
+              grade,
+              gradeScale.toLowerCase() as "vs" | "ft" | "ovs" | "oft" | "mg",
+            );
 
       return (
         <div className="flex w-full justify-center text-lg font-semibold">
@@ -246,9 +249,12 @@ export const columnsAll: ColumnDef<Route>[] = [
       const { gradeScale } = useGradeScale();
       const grade = row.getValue("routeGrade") as number;
       const displayedGrade =
-        gradeScale === "Vscale"
-          ? convertVietclimbToVscale(grade)
-          : grade.toString();
+        gradeScale === "VC"
+          ? grade.toString()
+          : convertGrade(
+              grade,
+              gradeScale.toLowerCase() as "vs" | "ft" | "ovs" | "oft" | "mg",
+            );
 
       return (
         <div className="flex w-full justify-center text-lg font-semibold">

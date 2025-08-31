@@ -3,10 +3,8 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -16,25 +14,31 @@ export function GradeScaleToggle() {
   const { gradeScale, setGradeScale } = useGradeScale();
 
   const handleGradeScaleChange = (value: string) => {
-    setGradeScale(value as "Vietclimb" | "Vscale");
+    setGradeScale(value as "VC" | "VS" | "FT" | "OVS" | "OFT" | "MG");
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{gradeScale}</Button>
+        <Button variant="ghost" size="icon">
+          {gradeScale}
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-30">
-        <DropdownMenuLabel>Grade Scale</DropdownMenuLabel>
-        <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
           value={gradeScale}
           onValueChange={handleGradeScaleChange}
         >
-          <DropdownMenuRadioItem value="Vietclimb">
-            Vietclimb
+          <DropdownMenuRadioItem value="VC">Vietclimb</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="VS">Vscale</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="FT">Font Scale</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="OVS">
+            Outdoor Vscale
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="Vscale">Vscale</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="OFT">
+            Outdoor Font Scale
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="MG">V2 in my gym</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

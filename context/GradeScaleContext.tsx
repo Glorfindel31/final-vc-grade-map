@@ -8,7 +8,7 @@ import React, {
   ReactNode,
 } from "react";
 
-type GradeScale = "Vietclimb" | "Vscale";
+type GradeScale = "VC" | "VS" | "FT" | "OVS" | "OFT" | "MG";
 
 interface GradeScaleContextType {
   gradeScale: GradeScale;
@@ -20,14 +20,19 @@ const GradeScaleContext = createContext<GradeScaleContextType | undefined>(
 );
 
 export function GradeScaleProvider({ children }: { children: ReactNode }) {
-  const [gradeScale, setGradeScaleState] = useState<GradeScale>("Vietclimb");
+  const [gradeScale, setGradeScaleState] = useState<GradeScale>("VC");
 
   useEffect(() => {
     const storedGradeScale = localStorage.getItem("gradeScale");
-    if (storedGradeScale === "Vscale") {
-      setGradeScaleState("Vscale");
+    if (
+      storedGradeScale &&
+      ["VC", "VS", "FT", "OVS", "OFT", "MG"].includes(
+        storedGradeScale as GradeScale,
+      )
+    ) {
+      setGradeScaleState(storedGradeScale as GradeScale);
     } else {
-      setGradeScaleState("Vietclimb");
+      setGradeScaleState("VC");
     }
   }, []);
 
