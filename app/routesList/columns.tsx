@@ -1,5 +1,5 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
@@ -42,6 +42,24 @@ const colorBg = {
   black: "bg-zinc-950",
   purple: "bg-purple-500",
   white: "bg-zinc-50",
+};
+
+const GradeCell = ({ row }: { row: Row<Route> }) => {
+  const { gradeScale } = useGradeScale();
+  const grade = row.getValue("routeGrade") as number;
+  const displayedGrade =
+    gradeScale === "VC"
+      ? grade.toString()
+      : convertGrade(
+          grade,
+          gradeScale.toLowerCase() as "vs" | "ft" | "ovs" | "oft" | "mg",
+        );
+
+  return (
+    <div className="flex w-full justify-center text-lg font-semibold">
+      {displayedGrade}
+    </div>
+  );
 };
 
 export const columnsZone: ColumnDef<Route>[] = [
@@ -110,23 +128,7 @@ export const columnsZone: ColumnDef<Route>[] = [
         </div>
       );
     },
-    cell: ({ row }) => {
-      const { gradeScale } = useGradeScale();
-      const grade = row.getValue("routeGrade") as number;
-      const displayedGrade =
-        gradeScale === "VC"
-          ? grade.toString()
-          : convertGrade(
-              grade,
-              gradeScale.toLowerCase() as "vs" | "ft" | "ovs" | "oft" | "mg",
-            );
-
-      return (
-        <div className="flex w-full justify-center text-lg font-semibold">
-          {displayedGrade}
-        </div>
-      );
-    },
+    cell: GradeCell,
   },
   {
     accessorKey: "setter",
@@ -245,23 +247,7 @@ export const columnsAll: ColumnDef<Route>[] = [
         </div>
       );
     },
-    cell: ({ row }) => {
-      const { gradeScale } = useGradeScale();
-      const grade = row.getValue("routeGrade") as number;
-      const displayedGrade =
-        gradeScale === "VC"
-          ? grade.toString()
-          : convertGrade(
-              grade,
-              gradeScale.toLowerCase() as "vs" | "ft" | "ovs" | "oft" | "mg",
-            );
-
-      return (
-        <div className="flex w-full justify-center text-lg font-semibold">
-          {displayedGrade}
-        </div>
-      );
-    },
+    cell: GradeCell,
   },
   {
     accessorKey: "setter",

@@ -56,7 +56,7 @@ export default function Home() {
           <AlertDialogHeader>
             <AlertDialogTitle>A Note on Grades</AlertDialogTitle>
             <AlertDialogDescription>
-              At VietClimb, our grades are set to help you progress. They're
+              At VietClimb, our grades are set to help you progress. They&apos;re
               specific to our gym and may not match those at your home gym or
               outdoors. Focus on your journey here and enjoy the climb!
             </AlertDialogDescription>
