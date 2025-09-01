@@ -1,6 +1,6 @@
 "use server";
 
-import { google, Auth } from "googleapis";
+import { sheets as _sheets, auth as _auth } from "@googleapis/sheets";
 import { revalidatePath } from "next/cache";
 
 interface ZoneData {
@@ -27,12 +27,12 @@ const keys = {
   universe_domain: process.env.UNIVERSE_DOMAIN,
 };
 
-const auth: Auth.GoogleAuth = new google.auth.GoogleAuth({
+const auth = new _auth.GoogleAuth({
   credentials: keys,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
-const gsapi = google.sheets({ version: "v4", auth });
+const gsapi = _sheets({ version: "v4", auth });
 
 export default async function getData() {
   try {
@@ -42,7 +42,10 @@ export default async function getData() {
     });
 
     const groupedData = gradeList.data.values?.reduce(
-      (acc: Record<string, ZoneData[]>, row): Record<string, ZoneData[]> => {
+      (
+        acc: Record<string, ZoneData[]>,
+        row: any[],
+      ): Record<string, ZoneData[]> => {
         if (row.length >= 7) {
           const [
             zone, // B: Zone name (e.g., "Moon Korner")
